@@ -1,0 +1,26 @@
+on:
+    push:
+        branches:
+            - '*'
+
+    workflow_dispatch:
+
+
+jobs:
+    job1:
+        name: test
+        runs-on: ubuntu-latest
+        steps:
+        - name: checkout repo
+          uses: actions/checkout@main
+
+        - name: s1
+          run: echo "hjk"
+
+        - name: reusable step
+          uses: sunny-1651/workflow-approval.git
+
+        - name: s2
+          run: echo "pjin"
+
+
