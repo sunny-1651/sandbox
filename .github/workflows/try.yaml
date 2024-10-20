@@ -24,10 +24,13 @@ jobs:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
+    - name: docker login
+      run: docker login --username sunny-1651 --password ${{ secrets.PAT_TOKEN }} ghcr.io
+
     - name: Wait for approval
       uses: sunny-1651/manual-approval@check
       with:
-        secret: ${{ secrets.PAT_TOKEN }}
+        secret: ${{ steps.generate_token.outputs.token }}
         approvers: sunny-1651
         minimum-approvals: 1
 
