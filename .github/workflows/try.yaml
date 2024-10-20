@@ -27,7 +27,7 @@ jobs:
     - name: Wait for approval
       uses: sunny-1651/manual-approval@check
       with:
-        secret: ${{ steps.generate_token.outputs.token }}
+        secret: ${{ secrets.PAT_TOKEN }}
         approvers: sunny-1651
         minimum-approvals: 1
 
