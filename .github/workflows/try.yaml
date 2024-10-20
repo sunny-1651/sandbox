@@ -25,7 +25,7 @@ jobs:
         private_key: ${{ secrets.CLIENT_ID }}
 
     - name: Wait for approval
-      uses: sunny-1651/manual-approval
+      uses: sunny-1651/manual-approval.git
       with:
         secret: ${{ steps.generate_token.outputs.token }}
         approvers: sunny-1651
