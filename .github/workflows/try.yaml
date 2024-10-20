@@ -24,8 +24,8 @@ jobs:
         app_id: ${{ secrets.APP_ID }}
         private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-    - name: docker login
-      run: echo ${{ secrets.PAT_TOKEN }} | docker login ghcr.io -u sunny-1651 --password-stdin
+    # - name: docker login
+    #   run: echo ${{ secrets.PAT_TOKEN }} | docker login ghcr.io -u sunny-1651 --password-stdin
         # docker login --username sunny-1651 --password ${{ secrets.PAT_TOKEN }} ghcr.io
 
     - name: Wait for approval
@@ -34,6 +34,8 @@ jobs:
         secret: ${{ steps.generate_token.outputs.token }}
         approvers: sunny-1651
         minimum-approvals: 1
+        target-repository: manual-approval
+        target-repository-owner: sunny-1651
 
     - name: s2
       run: echo "pjin"
