@@ -1,26 +1,37 @@
 on:
-    push:
-        branches:
-            - '*'
+  push:
+    branches:
+      - '*'
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 
 jobs:
-    job1:
-        name: test
-        runs-on: ubuntu-latest
-        steps:
-        - name: checkout repo
-          uses: actions/checkout@main
+  job1:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@main
 
-        - name: s1
-          run: echo "hjk"
+    - name: s1
+      run: echo "hjk"
 
-        - name: reusable step
-          uses: sunny-1651/workflow-approval.git
+    - name: Generate token
+      id: generate_token
+      uses: tibdex/github-app-token@v1
+      with:
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.CLIENT_ID }}
 
-        - name: s2
-          run: echo "pjin"
+    - name: Wait for approval
+      uses: sunny-1651/manual-approval@v1
+      with:
+        secret: ${{ steps.generate_token.outputs.token }}
+        approvers: sunny-1651
+        minimum-approvals: 1
+
+    - name: s2
+      run: echo "pjin"
 
 
