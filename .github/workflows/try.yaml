@@ -25,7 +25,8 @@ jobs:
         private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
     - name: docker login
-      run: docker login --username sunny-1651 --password ${{ secrets.PAT_TOKEN }} ghcr.io
+      run: echo ${{ secrets.PAT_TOKEN }} | docker login ghcr.io -u sunny-1651 --password-stdin
+        # docker login --username sunny-1651 --password ${{ secrets.PAT_TOKEN }} ghcr.io
 
     - name: Wait for approval
       uses: sunny-1651/manual-approval@check
