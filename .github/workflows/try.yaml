@@ -29,7 +29,7 @@ jobs:
         # docker login --username sunny-1651 --password ${{ secrets.PAT_TOKEN }} ghcr.io
 
     - name: Wait for approval
-      uses: sunny-1651/manual-approval@check
+      uses: sunny-1651/manual-approval@dev
       with:
         secret: ${{ steps.generate_token.outputs.token }}
         approvers: sunny-1651
