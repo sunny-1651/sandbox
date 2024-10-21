@@ -35,7 +35,7 @@ jobs:
         approvers: sunny-1651
         minimum-approvals: 1
       env:
-        target-repository-name: manual-approval
+        target-repository: manual-approval
         target-repository-owner: sunny-1651
 
     - name: s2
