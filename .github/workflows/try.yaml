@@ -13,28 +13,39 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@main
+    - name: extract
+      shell: bash
+      run: |
+        regions=$(jq -r ".locations" user_input.json)
+        json=$(jq --arg str "$regions" '.location = ($str | split(","))' user_input.json) #> temp.json
+        echo $json
+        echo "regions"
+        # mv temp.json user_input.json
+  
+  # job2:
+  #   name: job2
+  #   runs-on: ubuntu-latest
+  #   needs: [job1]
+  #   strategy:
+  #     matrix:
+  #       regions: ${{}}
+    # - name: s1
+    #   run: echo "hjk"
 
-    - name: s1
-      run: echo "hjk"
+    # - name: Generate token
+    #   id: generate_token
+    #   uses: tibdex/github-app-token@v1
+    #   with:
+    #     app_id: ${{ secrets.APP_ID }}
+    #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
-    - name: Generate token
-      id: generate_token
-      uses: tibdex/github-app-token@v1
-      with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
-    - name: Wait for approval
-      uses: sunny-1651/manual-approval@dev
-      with:
-        secret: ${{ steps.generate_token.outputs.token }}
-        approvers: sunny-1651
-        minimum-approvals: 1
-      env:
-        target-repository: first_go_project
-        target-repository-owner: sunny-1651
-
-    - name: s2
-      run: echo "pjin"
-
+    # - name: Wait for approval
+    #   uses: sunny-1651/manual-approval@dev
+    #   with:
+    #     secret: ${{ steps.generate_token.outputs.token }}
+    #     approvers: sunny-1651
+    #     minimum-approvals: 1
+    #   env:
+    #     target-repository: first_go_project
+    #     target-repository-owner: sunny-1651
 
