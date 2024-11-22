@@ -34,7 +34,7 @@ jobs:
         # echo "regions=$locations_array" >> $GITHUB_OUTPUT
         matrix=$(jq '.locations | split(",")' user_input.json | jq -c .)
         echo "regions=$matrix"
-        echo "regions=$matrix" >> $GITHUB_OUTPUT
+        echo "regions=['nane1','nane2','nane3','usce2']" >> $GITHUB_OUTPUT
   
   job2:
     name: job2
@@ -42,7 +42,7 @@ jobs:
     needs: [job1]
     strategy:
       matrix:
-        region: ${{ needs.prepare.outputs.regions }} 
+        region: ${{ needs.job1.outputs.regions }} 
     steps:
     - name: s1
       run: echo "${{ matrix.region }}"
