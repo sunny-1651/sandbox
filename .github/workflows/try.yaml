@@ -10,6 +10,8 @@ jobs:
   job1:
     name: test
     runs-on: ubuntu-latest
+    outputs:
+      regions: ${{ steps.extract.outputs.regions }}
     steps:
     - name: checkout repo
       uses: actions/checkout@main
@@ -17,20 +19,21 @@ jobs:
       shell: bash
       run: |
         regions=$(jq -r ".locations" user_input.json)
-        json=$(jq --arg str "$regions" '.location = ($str | split(","))' user_input.json) #> temp.json
+        json=$(jq --arg str "$regions" '.locations = ($str | split(","))' user_input.json) #> temp.json
         echo $json
-        echo "regions"
+        echo "regions=$json" >> $GITHUB_OUTPUT
         # mv temp.json user_input.json
   
-  # job2:
-  #   name: job2
-  #   runs-on: ubuntu-latest
-  #   needs: [job1]
-  #   strategy:
-  #     matrix:
-  #       regions: ${{}}
-    # - name: s1
-    #   run: echo "hjk"
+  job2:
+    name: job2
+    runs-on: ubuntu-latest
+    needs: [job1]
+    strategy:
+      matrix:
+        region: ${{ needs.job1.outputs.regions }}
+    steps:
+    - name: s1
+      run: echo "${{ matrix.region }}"
 
     # - name: Generate token
     #   id: generate_token
