@@ -23,15 +23,18 @@ jobs:
         # echo $json
         # echo "regions=$json" >> $GITHUB_OUTPUT
         # mv temp.json user_input.json
-        regions=$(jq -r ".locations" user_input.json)
-        # Convert string to array in JSON and store the result
-        json=$(jq --arg str "$regions" '.locations = ($str | split(","))' user_input.json)
+        # regions=$(jq -r ".locations" user_input.json)
+        # # Convert string to array in JSON and store the result
+        # json=$(jq --arg str "$regions" '.locations = ($str | split(","))' user_input.json)
 
-        # Extract just the locations array from the JSON and format it for GITHUB_OUTPUT
-        # This will properly escape the JSON array for GitHub Actions
-        locations_array=$(echo "$json" | jq -r '.locations | join(",")')
-        echo "regions=$locations_array"
-        echo "regions=$locations_array" >> $GITHUB_OUTPUT
+        # # Extract just the locations array from the JSON and format it for GITHUB_OUTPUT
+        # # This will properly escape the JSON array for GitHub Actions
+        # locations_array=$(echo "$json" | jq -r '.locations | join(",")')
+        # echo "regions=$locations_array"
+        # echo "regions=$locations_array" >> $GITHUB_OUTPUT
+        matrix=$(jq '{ "include": [.locations[] | {"region": .}] }' user_input.json)
+        echo "regions=$matrix"
+        echo "regions=$matrix" >> $GITHUB_OUTPUT
   
   job2:
     name: job2
@@ -39,7 +42,7 @@ jobs:
     needs: [job1]
     strategy:
       matrix:
-        region: ${{ needs.job1.outputs.regions }}
+        region: ${{ fromJson(needs.prepare.outputs.regions) }}
     steps:
     - name: s1
       run: echo "${{ matrix.region }}"
