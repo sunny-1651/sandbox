@@ -42,7 +42,7 @@ jobs:
     needs: [job1]
     steps:
     - name: s1
-      run: echo "${{ fromJson(needs.job1.outputs.regions).regions }}"
+      run: echo "${{ needs.job1.outputs.regions }}"
 
   job2:
     name: job2
