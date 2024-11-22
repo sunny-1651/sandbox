@@ -42,7 +42,7 @@ jobs:
     needs: [job1]
     strategy:
       matrix:
-        region: ${{ fromJson(needs.prepare.outputs.regions) }}
+        region: ${{ fromJson(needs.prepare.outputs.regions) }} 
     steps:
     - name: s1
       run: echo "${{ matrix.region }}"
