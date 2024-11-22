@@ -32,9 +32,9 @@ jobs:
         # locations_array=$(echo "$json" | jq -r '.locations | join(",")')
         # echo "regions=$locations_array"
         # echo "regions=$locations_array" >> $GITHUB_OUTPUT
-        matrix=$(jq '.locations |= split(",")' user_input.json)
+        matrix=$(jq '.locations | split(",")' user_input.json)
         echo "regions=$matrix"
-        echo "regions=$(echo $matrix)" >> $GITHUB_OUTPUT
+        echo "regions=$matrix" >> $GITHUB_OUTPUT
   
   job2:
     name: job2
