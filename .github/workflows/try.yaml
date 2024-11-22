@@ -37,8 +37,10 @@ jobs:
         echo "regions=$matrix" >> $GITHUB_OUTPUT
         echo "op: $GITHUB_OUTPUT"
         # echo "env: $GITHUB_ENV"
-        ls /home/runner/work/_temp/_runner_file_commands -al
-        cat /home/runner/work/_temp/_runner_file_commands/set_output_a09666f6-02e7-4a99-8635-89b26a877867
+        # ls /home/runner/work/_temp/_runner_file_commands -al
+        cat $GITHUB_OUTPUT
+        echo "---------------------------------------------"
+        cat $GITHUB_ENV
   
   # test:
   #   name: test
