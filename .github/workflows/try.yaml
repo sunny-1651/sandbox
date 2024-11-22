@@ -30,6 +30,7 @@ jobs:
         # Extract just the locations array from the JSON and format it for GITHUB_OUTPUT
         # This will properly escape the JSON array for GitHub Actions
         locations_array=$(echo "$json" | jq -r '.locations | join(",")')
+        echo "regions=$locations_array"
         echo "regions=$locations_array" >> $GITHUB_OUTPUT
   
   job2:
