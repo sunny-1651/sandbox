@@ -16,7 +16,7 @@ jobs:
         run: |
           # Extract regions from input.json and format as a JSON array
           regions=$(jq -r '.regions | @csv' user_input.json | tr -d ' ')
-          echo "regions=[${regions}]" >> $GITHUB_ENV
+          echo "REGIONS=[${regions}]" >> $GITHUB_ENV
           cat $GITHUB_ENV
           echo "::set-output name=regions::[$regions]"
 
@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # region: ["nane1","nane2","nane3","usce2"]
-        region: ${{ env.regions }}
+        region: ${{ env.REGIONS }}
     steps:
       - name: Deploy to AWS
         run: |
