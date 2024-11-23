@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Deploy to AWS
         run: |
-          echo "Deploying to region: ${{ fromJson(needs.prepare-matrix.outputs.regions) }}"
+          echo "Deploying to region: ${{ needs.prepare-matrix.outputs.regions }}"
           # Add your deployment commands here
 
 
