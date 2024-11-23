@@ -14,8 +14,8 @@ jobs:
       - name: Extract regions from JSON
         id: set-regions
         run: |
-          # Extract regions from input.json and format as JSON array
-          regions=$(jq -r '.regions | @csv' user_input.json | tr -d '"')
+          # Extract regions from input.json and format as a JSON array
+          regions=$(jq -r '.regions | @csv' input.json | tr -d '"' | tr ' ' '')
           echo "regions=[${regions}]" >> $GITHUB_ENV
           echo "::set-output name=regions::[$regions]"
 
