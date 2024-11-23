@@ -23,9 +23,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: prepare-matrix
-    strategy:
-      # matrix:
-      #   region: "${{ env.REGIONS }}"
+    # strategy:
+    #   matrix:
+    #     region: "${{ env.REGIONS }}"
         # region: ["nane1","nane2","nane3","usce2"]
     steps:
       - name: Deploy to AWS
