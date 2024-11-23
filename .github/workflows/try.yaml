@@ -24,7 +24,8 @@ jobs:
     needs: prepare-matrix
     strategy:
       matrix:
-        region: ${{ needs.prepare-matrix.outputs.regions }}
+        region: ["nane1","nane2","nane3","usce2"]
+        # region: ${{ needs.prepare-matrix.outputs.regions }}
     steps:
       - name: Deploy to AWS
         run: |
