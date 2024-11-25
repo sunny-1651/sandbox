@@ -14,7 +14,10 @@ jobs:
       - name: Extract regions from JSON
         id: set-regions
         run: |
-          regions=$(jq -n -c '["nane1", "usce2", "asne3", "asso4"]')
+          regions="'"
+          regions+=$(jq -c -r '.locations | split(",")' user_input.json)
+          regions+="'"
+          echo "regions=$regions"
           echo "regions=$regions" >> $GITHUB_OUTPUT
           # Extract regions from input.json and format as a JSON array
           # regions=$(jq -r '.regions | @csv' user_input.json | tr -d '"' | tr -d ' ')
@@ -32,7 +35,7 @@ jobs:
     steps:
       - name: Deploy to AWS
         run: |
-          echo "Deploying to region: ${{ matrix.regions }}" #${{ matrix.region }}"
+          echo "Deploying to region: ${{ matrix.region }}" #${{ matrix.region }}"
           # Add your deployment commands here
 
 
